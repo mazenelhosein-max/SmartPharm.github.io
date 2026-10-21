@@ -1,0 +1,301 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>SmartPharm — Monitor. Predict. Automate.</title>
+<meta name="description" content="SmartPharm: an AI-assisted pharmacy inventory prototype that spots shortages and expiries early and explains every recommendation.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=IBM+Plex+Mono:wght@500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+:root{--bg:#EDF2F8;--card:#FFFFFF;--ink:#0A1E3A;--mute:#566B85;--line:#DAE3EE;--line-2:#C5D3E3;--brand:#0E7490;--brand-d:#0A1F3C;--brand-soft:#DAF2F7;--crit:#C72C38;--crit-soft:#FADFE1;--warn:#B45A04;--warn-soft:#FCEBD2;--ok:#12875A;--ok-soft:#DCF3E7;--exp:#6D3FD0;--exp-soft:#EBE3FA;
+--serif:'Fraunces',Georgia,'Times New Roman',serif;--sans:'IBM Plex Sans','Segoe UI',system-ui,sans-serif;--mono:'IBM Plex Mono',ui-monospace,Menlo,monospace;color-scheme:light;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#07142A;--card:#0E2240;--ink:#E8EFF9;--mute:#8FA6C3;--line:#1E3B65;--line-2:#2C4D7C;--brand:#22C7E8;--brand-d:#6FDDF3;--brand-soft:rgba(34,199,232,.14);--crit:#FF7078;--crit-soft:rgba(255,112,120,.16);--warn:#F5A04A;--warn-soft:rgba(245,160,74,.16);--ok:#3DD598;--ok-soft:rgba(61,213,152,.14);--exp:#B49BFF;--exp-soft:rgba(180,155,255,.17);color-scheme:dark}}
+html{scroll-behavior:smooth;scroll-padding-top:calc(76px + env(safe-area-inset-top,0px))}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 var(--sans);-webkit-font-smoothing:antialiased}
+h1,h2,h3{font-family:var(--serif);line-height:1.12;margin:0;letter-spacing:-.015em;text-wrap:balance}
+p{margin:0}a{color:inherit}
+.wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+.eyebrow{font:500 12px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--brand)}
+section{padding:88px 0}
+.sec-h{max-width:640px;margin-bottom:44px}
+.sec-h h2{font-size:clamp(30px,4.4vw,46px);margin:14px 0 14px}
+.sec-h p{color:var(--mute);font-size:17px}
+
+/* nav */
+header{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--bg) 90%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);padding-top:env(safe-area-inset-top,0px)}
+.nav{display:flex;align-items:center;gap:24px;height:68px}
+.logo{display:flex;align-items:center;gap:10px;font:700 22px var(--serif);text-decoration:none}
+.logo i{width:30px;height:30px;border-radius:9px;background:var(--brand);display:grid;place-items:center;color:#fff;font:700 15px var(--mono);font-style:normal}
+.links{display:flex;gap:4px;margin-left:auto;overflow-x:auto}
+.links a{padding:8px 14px;border-radius:99px;text-decoration:none;font-weight:500;font-size:15px;color:var(--mute);white-space:nowrap}
+.links a:hover,.links a.on{background:var(--brand-soft);color:var(--brand-d)}
+.btn{display:inline-flex;align-items:center;gap:8px;min-height:46px;padding:0 22px;border-radius:12px;background:var(--brand);color:#fff;font-weight:600;text-decoration:none;border:1px solid var(--brand);cursor:pointer;font-size:15px}
+@media (prefers-color-scheme:dark){.btn{color:#04202A}}
+.btn:hover{filter:brightness(1.1)}
+.btn.ghost{background:transparent;color:var(--ink);border-color:var(--line)}
+.btn.ghost:hover{border-color:var(--brand)}
+.nav .btn{min-height:40px;padding:0 16px;font-size:14px}
+@media(max-width:820px){.nav .btn{display:none}.nav{gap:8px}.logo span{display:none}}
+
+/* hero */
+.hero{padding:72px 0 80px}
+.hero .wrap{display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:center}
+.hero h1{font-size:clamp(44px,7vw,84px);margin:18px 0 22px}
+.hero h1 em{font-style:italic;color:var(--brand)}
+.hero p.lead{font-size:19px;color:var(--mute);max-width:520px}
+.cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:32px}
+.badge{display:inline-flex;gap:8px;align-items:center;margin-top:28px;font:500 12.5px var(--mono);color:var(--mute)}
+.badge b{width:8px;height:8px;border-radius:50%;background:var(--ok);box-shadow:0 0 0 4px var(--ok-soft)}
+.shelf{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:22px;box-shadow:0 24px 60px -30px rgba(10,31,60,.35)}
+.shelf-h{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;font:500 12px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--mute)}
+.alert{background:var(--brand);color:#fff;border-radius:14px;padding:14px 16px;margin-bottom:16px;font-family:var(--serif);font-size:19px;line-height:1.25}
+@media (prefers-color-scheme:dark){.alert{color:#04202A}}
+.racks{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
+.rk{border-radius:12px;padding:10px 8px 9px;border:1px solid transparent;text-align:left;font-family:var(--sans)}
+.rk b{display:block;font:700 20px var(--mono)}
+.rk span{display:block;font-size:10.5px;line-height:1.25;margin-top:2px;opacity:.85}
+.rk.ok{background:var(--ok-soft);color:var(--ok)}.rk.warn{background:var(--warn-soft);color:var(--warn)}.rk.crit{background:var(--crit-soft);color:var(--crit)}.rk.exp{background:var(--exp-soft);color:var(--exp)}
+.rk.crit{animation:pulse 2.4s ease-in-out infinite}
+@keyframes pulse{50%{box-shadow:0 0 0 5px var(--crit-soft)}}
+@media (prefers-reduced-motion:reduce){.rk.crit{animation:none}}
+.legend{display:flex;gap:14px;flex-wrap:wrap;margin-top:14px;font-size:12px;color:var(--mute)}
+.legend i{display:inline-block;width:9px;height:9px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+.cap{font-size:11.5px;color:var(--mute);margin-top:10px}
+@media(max-width:900px){.hero .wrap{grid-template-columns:1fr;gap:40px}}
+
+/* stats */
+.stats{border-block:1px solid var(--line);padding:0}
+.stats .wrap{display:grid;grid-template-columns:repeat(4,1fr)}
+.st{padding:30px 20px;border-left:1px solid var(--line)}
+.st:first-child{border-left:0;padding-left:0}
+.st b{display:block;font:700 40px var(--serif);color:var(--brand)}
+.st span{font-size:14px;color:var(--mute)}
+@media(max-width:700px){.stats .wrap{grid-template-columns:1fr 1fr}.st:nth-child(3){border-left:0;padding-left:0}.st:nth-child(n+3){border-top:1px solid var(--line)}}
+
+/* problems */
+.prob{display:grid;gap:14px}
+.pr{display:grid;grid-template-columns:48px 1fr 1fr;gap:28px;align-items:start;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:24px 26px}
+.pr .n{font:500 14px var(--mono);color:var(--crit);padding-top:4px}
+.pr h3{font-size:22px;margin-bottom:6px}
+.pr p{color:var(--mute);font-size:15px}
+.pr .fix{border-left:3px solid var(--brand);padding-left:18px}
+.pr .fix small{display:block;font:500 11px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--brand);margin-bottom:4px}
+.pr .fix p{color:var(--ink)}
+@media(max-width:760px){.pr{grid-template-columns:1fr;gap:12px}.pr .fix{margin-top:4px}}
+
+/* features */
+.alt{background:var(--brand-soft)}
+.filters{display:flex;gap:8px;margin-bottom:24px;flex-wrap:wrap}
+.filters button{min-height:40px;padding:0 18px;border-radius:99px;border:1px solid var(--line);background:var(--card);color:var(--ink);font:500 14px var(--sans);cursor:pointer}
+.filters button[aria-pressed=true]{background:var(--brand);border-color:var(--brand);color:#fff}
+@media (prefers-color-scheme:dark){.filters button[aria-pressed=true]{color:#04202A}}
+.fg{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:16px}
+.f{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:24px;display:flex;flex-direction:column;gap:10px}
+.f[hidden]{display:none}
+.f .top{display:flex;justify-content:space-between;align-items:center}
+.f .ic{width:40px;height:40px;border-radius:11px;background:var(--brand-soft);color:var(--brand);display:grid;place-items:center;font:700 14px var(--mono)}
+.tag{font:500 11px var(--mono);padding:4px 10px;border-radius:99px;letter-spacing:.04em}
+.tag.b{background:var(--ok-soft);color:var(--ok)}.tag.s{background:var(--exp-soft);color:var(--exp)}
+.f h3{font-size:21px}.f p{font-size:14.5px;color:var(--mute)}
+
+/* how */
+.pipe{display:grid;grid-template-columns:repeat(5,1fr);gap:0;counter-reset:s}
+.pp{position:relative;padding:0 18px 0 0}
+.pp::before{counter-increment:s;content:"0" counter(s);display:block;font:500 13px var(--mono);color:var(--brand);margin-bottom:12px}
+.pp::after{content:"";position:absolute;top:8px;left:36px;right:10px;border-top:1px dashed var(--line-2,var(--line))}
+.pp:last-child::after{display:none}
+.pp h3{font-size:19px;margin-bottom:6px}.pp p{font-size:14px;color:var(--mute)}
+@media(max-width:860px){.pipe{grid-template-columns:1fr;gap:22px}.pp::after{display:none}}
+.road{display:flex;flex-wrap:wrap;gap:8px;margin-top:44px;align-items:center}
+.road b{font:500 12px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--mute);margin-right:8px}
+.road span{padding:6px 14px;border:1px dashed var(--line);border-radius:99px;font-size:13.5px;color:var(--mute)}
+
+/* about */
+.about{display:grid;grid-template-columns:1.2fr .8fr;gap:48px}
+.about p{color:var(--mute);margin-bottom:16px;font-size:17px}
+.note{background:var(--warn-soft);border-radius:16px;padding:18px 20px;color:var(--ink);font-size:15px;margin-top:8px}
+.note b{color:var(--warn)}
+.team{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:26px}
+.team h3{font-size:22px;margin-bottom:16px}
+.team ul{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.team li{display:flex;align-items:center;gap:12px;font-weight:500}
+.team li i{width:36px;height:36px;border-radius:50%;background:var(--brand-soft);color:var(--brand-d);display:grid;place-items:center;font:700 14px var(--serif);font-style:normal}
+@media(max-width:820px){.about{grid-template-columns:1fr}}
+
+/* get */
+.get{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.steps{list-style:none;margin:0;padding:0;display:grid;gap:12px;counter-reset:g}
+.steps li{counter-increment:g;display:grid;grid-template-columns:40px 1fr;gap:14px;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px}
+.steps li::before{content:counter(g);width:36px;height:36px;border-radius:50%;background:var(--brand);color:#fff;display:grid;place-items:center;font:700 15px var(--mono)}
+@media (prefers-color-scheme:dark){.steps li::before{color:#04202A}}
+.steps b{display:block}.steps span{font-size:14.5px;color:var(--mute)}
+.dl{background:var(--brand-d);color:#fff;border-radius:22px;padding:32px;display:flex;flex-direction:column;gap:16px;justify-content:center}
+@media (prefers-color-scheme:dark){.dl{background:#0C2040}}
+.dl h3{font-size:28px}.dl p{opacity:.85;font-size:15px}
+.dl .btn{background:#fff;color:var(--brand-d);border-color:#fff;align-self:flex-start}
+.dl code{font:500 13px var(--mono);background:rgba(255,255,255,.12);padding:3px 8px;border-radius:6px}
+.cols{margin-top:6px;font-size:13.5px;opacity:.85}
+@media(max-width:820px){.get{grid-template-columns:1fr}}
+footer{border-top:1px solid var(--line);padding:30px 0 40px;color:var(--mute);font-size:14px}
+footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+:focus-visible{outline:2px solid var(--brand);outline-offset:2px}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a class="logo" href="#home"><i>Rx</i><span>SmartPharm</span></a>
+    <nav class="links" aria-label="Main">
+      <a href="#home">Home</a><a href="#problems">Problems</a><a href="#features">Features</a><a href="#how">How it works</a><a href="#about">About</a><a href="#get">Get the project</a>
+    </nav>
+    <a class="btn" href="#get">Get SmartPharm</a>
+  </div>
+</header>
+
+<main>
+<section class="hero" id="home">
+  <div class="wrap">
+    <div>
+      <div class="eyebrow">AI Automated Pharmacy · Capstone</div>
+      <h1>Monitor. Predict. <em>Automate.</em></h1>
+      <p class="lead">SmartPharm turns a pharmacy’s stock list into early warnings. It spots shortages and expiries before they cost money, places every medicine on a virtual map, and explains why it recommends each action.</p>
+      <div class="cta"><a class="btn" href="#get">Get SmartPharm</a><a class="btn ghost" href="#features">Explore features</a></div>
+      <div class="badge"><b></b>School capstone prototype · recommendations are rule-based and transparent</div>
+    </div>
+    <div class="shelf" aria-label="Illustrative pharmacy rack overview">
+      <div class="shelf-h"><span>Pharmacy map · racks A–J</span><span>Today</span></div>
+      <div class="alert">AI detected medicines requiring attention today.</div>
+      <div class="racks">
+        <div class="rk ok"><b>A</b><span>Antibiotics</span></div>
+        <div class="rk crit"><b>B</b><span>Painkillers</span></div>
+        <div class="rk warn"><b>C</b><span>Cold &amp; Flu</span></div>
+        <div class="rk ok"><b>D</b><span>Diabetes</span></div>
+        <div class="rk exp"><b>E</b><span>Heart</span></div>
+        <div class="rk ok"><b>F</b><span>Vitamins</span></div>
+        <div class="rk ok"><b>G</b><span>Dermatology</span></div>
+        <div class="rk warn"><b>H</b><span>Emergency</span></div>
+        <div class="rk ok"><b>I</b><span>Digestive</span></div>
+        <div class="rk crit"><b>J</b><span>Allergy &amp; Resp.</span></div>
+      </div>
+      <div class="legend"><span><i style="background:var(--crit)"></i>Critical</span><span><i style="background:var(--warn)"></i>Warning</span><span><i style="background:var(--exp)"></i>Expiry</span><span><i style="background:var(--ok)"></i>Healthy</span></div>
+      <div class="cap">Illustration of the Pharmacy Map idea, not live data.</div>
+    </div>
+  </div>
+</section>
+
+<section class="stats"><div class="wrap">
+  <div class="st"><b>10</b><span>Racks A–J mapped by category</span></div>
+  <div class="st"><b>13</b><span>Screens, from dashboard to reports</span></div>
+  <div class="st"><b>5</b><span>Suppliers with reliability scores</span></div>
+  <div class="st"><b>9</b><span>Derived fields per medicine</span></div>
+</div></section>
+
+<section id="problems">
+  <div class="wrap">
+    <div class="sec-h"><div class="eyebrow">The problem</div><h2>What pharmacists struggle with every day</h2><p>Running a pharmacy means balancing too little stock against too much, while the clock runs on every expiry date.</p></div>
+    <div class="prob">
+      <div class="pr"><div class="n">01</div><div><h3>Expired medicines</h3><p>Boxes pass their date unnoticed on a crowded shelf, and the cost is written off.</p></div><div class="fix"><small>SmartPharm</small><p>The Expiry Monitor groups stock by how soon it expires and flags what to sell, move or return first.</p></div></div>
+      <div class="pr"><div class="n">02</div><div><h3>Sudden shortages</h3><p>A fast-selling medicine runs out before the supplier delivers, and the customer leaves empty-handed.</p></div><div class="fix"><small>SmartPharm</small><p>Days of stock are compared with supplier lead time, so risk shows as Critical or Warning early.</p></div></div>
+      <div class="pr"><div class="n">03</div><div><h3>Overstock and tied-up cash</h3><p>Over-ordering “to be safe” locks money in slow movers that may later expire.</p></div><div class="fix"><small>SmartPharm</small><p>Demand Analysis and the What-If Simulator show how a demand change would affect stock and orders.</p></div></div>
+      <div class="pr"><div class="n">04</div><div><h3>Finding the right box, fast</h3><p>Staff lose minutes searching shelves while a patient waits at the counter.</p></div><div class="fix"><small>SmartPharm</small><p>Search any medicine and see its rack and shelf on the Pharmacy Map. The Prescription Assistant matches a whole prescription.</p></div></div>
+      <div class="pr"><div class="n">05</div><div><h3>Shelf and system do not match</h3><p>The count in the software drifts away from what is physically on the shelf.</p></div><div class="fix"><small>SmartPharm</small><p>Shelf Vision compares expected and detected quantities and shows the difference per medicine.</p></div></div>
+      <div class="pr"><div class="n">06</div><div><h3>Reordering by gut feeling</h3><p>Purchase orders depend on memory and manual spreadsheets, and the reasons are rarely recorded.</p></div><div class="fix"><small>SmartPharm</small><p>The Reorder Center suggests purchase orders and explains what happened, why, and what to do.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="alt" id="features">
+  <div class="wrap">
+    <div class="sec-h"><div class="eyebrow">Features</div><h2>Everything the prototype does</h2><p>Each module is tagged honestly: <b>Built</b> works on real data in the app, <b>Simulated</b> demonstrates the idea with rule-based logic.</p></div>
+    <div class="filters" role="group" aria-label="Filter features">
+      <button aria-pressed="true" data-f="all">All</button><button aria-pressed="false" data-f="b">Built</button><button aria-pressed="false" data-f="s">Simulated</button>
+    </div>
+    <div class="fg" id="fg">
+      <article class="f" data-t="b"><div class="top"><div class="ic">DB</div><span class="tag b">BUILT</span></div><h3>Dashboard</h3><p>A daily summary of critical alerts, expiry alerts, inventory health, demand trends and risk distribution.</p></article>
+      <article class="f" data-t="b"><div class="top"><div class="ic">IN</div><span class="tag b">BUILT</span></div><h3>Inventory</h3><p>A sortable table of stock, daily sales, days of stock, reorder level and supplier lead time.</p></article>
+      <article class="f" data-t="b"><div class="top"><div class="ic">MD</div><span class="tag b">BUILT</span></div><h3>Medicines &amp; search</h3><p>A medicine catalogue with a detail page covering inventory, supplier, expiry, location and six months of sales.</p></article>
+      <article class="f" data-t="b"><div class="top"><div class="ic">MP</div><span class="tag b">BUILT</span></div><h3>Pharmacy Map</h3><p>A virtual pharmacy where every medicine is placed by rack and shelf, grouped by category.</p></article>
+      <article class="f" data-t="b"><div class="top"><div class="ic">EX</div><span class="tag b">BUILT</span></div><h3>Expiry Monitor</h3><p>Tracks expired and soon-to-expire stock against thresholds the pharmacist controls.</p></article>
+      <article class="f" data-t="b"><div class="top"><div class="ic">DM</div><span class="tag b">BUILT</span></div><h3>Demand Analysis</h3><p>Demand trends, high-demand medicines and demand change, so slow and fast movers are clear.</p></article>
+      <article class="f" data-t="b"><div class="top"><div class="ic">WI</div><span class="tag b">BUILT</span></div><h3>What-If Simulator</h3><p>Change demand or delivery assumptions and compare current stock against the scenario.</p></article>
+      <article class="f" data-t="s"><div class="top"><div class="ic">AI</div><span class="tag s">SIMULATED</span></div><h3>AI Control Center</h3><p>Run an analysis, see active modules and read the reasoning behind every recommendation.</p></article>
+      <article class="f" data-t="b"><div class="top"><div class="ic">RX</div><span class="tag b">BUILT</span></div><h3>Prescription Assistant</h3><p>Reads an uploaded prescription with a real OCR API, matches it to inventory, locates each medicine on the map and suggests alternatives for pharmacist review.</p></article>
+      <article class="f" data-t="s"><div class="top"><div class="ic">SV</div><span class="tag s">SIMULATED</span></div><h3>Shelf Vision</h3><p>Compares physical versus digital inventory and shows the difference per medicine.</p></article>
+      <article class="f" data-t="b"><div class="top"><div class="ic">RO</div><span class="tag b">BUILT</span></div><h3>Reorder Center</h3><p>Recommended orders and purchase-order workflow, simulated so no real purchasing takes place.</p></article>
+      <article class="f" data-t="b"><div class="top"><div class="ic">RP</div><span class="tag b">BUILT</span></div><h3>Reports &amp; Settings</h3><p>Reports plus adjustable risk thresholds, notification, AI and appearance settings.</p></article>
+    </div>
+  </div>
+</section>
+
+<section id="how">
+  <div class="wrap">
+    <div class="sec-h"><div class="eyebrow">How it works</div><h2>One dataset, one shared state, every page</h2><p>Every screen reads the same list of medicines, so a number never disagrees with itself between pages.</p></div>
+    <div class="pipe">
+      <div class="pp"><h3>Dataset</h3><p>Medicines, stock, sales and expiry from a demo set or an imported CSV.</p></div>
+      <div class="pp"><h3>Processing</h3><p>Nine derived fields such as days of stock, risk, expiry and stock value.</p></div>
+      <div class="pp"><h3>Shared state</h3><p>One list of medicines feeds every page.</p></div>
+      <div class="pp"><h3>Rule-based AI</h3><p>Transparent rules turn numbers into recommended actions.</p></div>
+      <div class="pp"><h3>Decision pages</h3><p>Dashboard, map, reports and reorder center show the result.</p></div>
+    </div>
+    <div class="road"><b>Planned next</b><span>ML demand forecasting</span><span>Computer vision</span><span>Barcode scanning</span><span>Supplier API</span><span>POS integration</span><span>Mobile app</span></div>
+  </div>
+</section>
+
+<section class="alt" id="about">
+  <div class="wrap about">
+    <div>
+      <div class="eyebrow">About</div>
+      <h2 style="font-size:clamp(30px,4.4vw,46px);margin:14px 0 20px">A graduation capstone with a practical goal</h2>
+      <p>SmartPharm moves a pharmacy from simply tracking inventory toward intelligent automation. The goal is a tool where a pharmacist can see what needs attention, understand why, and act in a few clicks.</p>
+      <p>Explainability is central: each recommendation states what happened, why the system flagged it, and what to do next.</p>
+      <div class="note"><b>Honest scope.</b> Recommendations come from transparent rules on a shared dataset. Prescriptions are read by a real OCR API, but no machine-learning forecasting engine or shelf computer-vision model is running, and no real purchasing takes place.</div>
+    </div>
+    <div class="team"><h3>The team</h3>
+      <ul><li><i>A</i>Ahmed Al-Hussein Hamed</li><li><i>S</i>Salma Ahmed Abdullah</li></ul>
+    </div>
+  </div>
+</section>
+
+<section id="get">
+  <div class="wrap">
+    <div class="sec-h"><div class="eyebrow">Get the project</div><h2>Where SmartPharm stands today</h2><p>SmartPharm is a prototype. Here is what exists now and what is planned for the future.</p></div>
+    <div class="get">
+      <ol class="steps">
+        <li><div><b>Now: working prototype</b><span>Demo data, rule-based recommendations, the Pharmacy Map and a Prescription Assistant with real OCR.</span></div></li>
+        <li><div><b>Planned: connect real pharmacy data</b><span>A real-time pharmacy database, POS integration, supplier API and barcode scanning.</span></div></li>
+        <li><div><b>Future: full automation</b><span>Machine-learning demand forecasting, computer vision for shelves, automated purchasing and a mobile app.</span></div></li>
+      </ol>
+      <div class="dl">
+        <div class="eyebrow" style="color:#6FDDF3">Prototype</div>
+        <h3>SmartPharm</h3>
+        <p>An AI Automated Pharmacy capstone project.</p>
+        <button class="btn" id="getBtn" type="button">Get SmartPharm</button>
+        <div id="getMsg" role="status" hidden style="background:rgba(255,255,255,.12);border-radius:12px;padding:14px 16px;font-size:15px">SmartPharm is a prototype for now, so there is nothing to download yet. Full implementation is planned for the future.</div>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer><div class="wrap"><span>SmartPharm · AI Automated Pharmacy</span><span>Capstone prototype. Not for clinical or purchasing use.</span></div></footer>
+
+<script>
+(function(){
+  var btns=document.querySelectorAll('.filters button'),cards=document.querySelectorAll('#fg .f');
+  btns.forEach(function(b){b.addEventListener('click',function(){
+    btns.forEach(function(x){x.setAttribute('aria-pressed',x===b)});
+    cards.forEach(function(c){c.hidden=b.dataset.f!=='all'&&c.dataset.t!==b.dataset.f});
+  })});
+  var gb=document.getElementById('getBtn'),gm=document.getElementById('getMsg');
+  gb.addEventListener('click',function(){gm.hidden=false;});
+  var links=document.querySelectorAll('.links a'),secs=[].map.call(links,function(a){return document.querySelector(a.getAttribute('href'))});
+  function spy(){var y=window.scrollY+120,cur=0;secs.forEach(function(s,i){if(s&&s.offsetTop<=y)cur=i});links.forEach(function(a,i){a.classList.toggle('on',i===cur)})}
+  window.addEventListener('scroll',spy,{passive:true});spy();
+})();
+</script>
+</body>
+</html>
